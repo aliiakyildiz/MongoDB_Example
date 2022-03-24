@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace MongoDB_Example.Models
 {
-    interface IMongoDBSettings
+    public interface IMongoDBSettings
     {
+        string CollectionName { get; set; }
+        string ConnectionString { get; set; }
+        string DatabaseName { get; set; }
     }
 }

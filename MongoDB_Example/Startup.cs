@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using MongoDB_Example.Models;
+using MongoDB_Example.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,13 @@ namespace MongoDB_Example
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MongoDB_Example", Version = "v1" });
             });
+
+            services.Configure<MongoDBSettings>(
+            Configuration.GetSection(nameof(MongoDBSettings)));
+            services.AddSingleton<IMongoDBSettings>(sp =>
+            sp.GetRequiredService<IOptions<MongoDBSettings>>().Value);
+            services.AddSingleton<UserMusicFavoriteService>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

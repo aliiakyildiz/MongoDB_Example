@@ -7,5 +7,7 @@ namespace MongoDB_Example.Models
 {
     public class Music
     {
+        public int musicId;
+        public string name;
     }
 }
